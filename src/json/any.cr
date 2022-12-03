@@ -281,6 +281,62 @@ struct JSON::Any
     raw.to_yaml(yaml)
   end
 
+  def to_i : Int64
+    raw.as(String | Int64 | Float64).to_i
+  end
+
+  def to_i? : Int64?
+    case object = raw
+    when String
+      object.to_i?
+    when Float64
+      object.to_i
+    when Int64
+      object
+    end
+  end
+
+  def to_i32 : Int32
+    raw.as(String | Int64 | Float64).to_i32
+  end
+
+  def to_i32? : Int32?
+    case object = raw
+    when String
+      object.to_i32?
+    when Int64, Float64
+      object.to_i32
+    end
+  end
+
+  def to_f : Float64
+    raw.as(String | Int64 | Float64).to_f
+  end
+
+  def to_f? : Float64?
+    case object = raw
+    when String
+      object.to_f?
+    when Int64
+      object.to_f
+    when Float64
+      object
+    end
+  end
+
+  def to_f32 : Float32
+    raw.as(String | Int64 | Float64).to_f32
+  end
+
+  def to_f32? : Float32?
+    case object = raw
+    when String
+      object.to_f32?
+    when Int64, Float64
+      object.to_f32
+    end
+  end
+
   # Returns a new JSON::Any instance with the `raw` value `dup`ed.
   def dup
     JSON::Any.new(raw.dup)
